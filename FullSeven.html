@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #333;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        p {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            width: 80%;
+            margin-bottom: 1rem;
+        }
+        .button {
+            background-color: #444;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            text-align: center;
+            text-decoration: none;
+            padding: 2rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .button:hover {
+            background-color: #555;
+        }
+        footer {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        #battery {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SEVEN</h1>
+    </header>
+    <div class="button-container">
+        <button class="button" onclick="sendMove(1)">1</button>
+        <button class="button" onclick="sendMove(2)">2</button>
+    </div>
+    <div class="button-container">
+        <button class="button" onclick="sendMove(3)">3</button>
+        <button class="button" onclick="sendMove(4)">4</button>
+    </div>
+    <div class="button-container">
+        <button class="button" onclick="sendMove(5)">5</button>
+        <button class="button" onclick="sendMove(6)">6</button>
+    </div>
+    <div class="button-container">
+        <button class="button" onclick="sendMove(0)">0</button>
+    </div>
+    <p>by Titanas</p>
+    <p id="battery">🔋 </p>
+    <footer>
+        © 2023 Murphy's Magic Supplies
+    </footer>
+    <script>
+        function sendMove(pos) {
+            fetch('http://192.168.4.1/move?pos=' + pos)
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(error => console.log(error));
+        }
+
+        function requestBattery() {
+            fetch('http://192.168.4.1/battery')
+                .then(response => response.text())
+                .then(data => document.getElementById('battery').innerText = "🔋 " + data)
+                .catch(error => console.log(error));
+        }
+
+       setInterval(requestBattery, 5000); // Update battery status every 5 seconds
+00); // Update battery status every
+; // Update battery status every 5 seconds
+    </script>
+</body>
+</html>
